@@ -33,8 +33,7 @@ const auth = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      logError,
-      accept: 'application/json',
+   //   accept: 'application/json',
       authorization: token ? `Bearer ${token}` : '',
     }
   };

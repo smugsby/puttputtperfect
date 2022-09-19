@@ -24,30 +24,32 @@ const resolvers = {
     //add mutations
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
-            const newUser = await User.create({ username, email, password });
-            const token = signToken(newUser)
-            return { token, newUser };
+            const user = await User.create({ username, email, password });
+            const token = signToken(user)
+            return { token, user };
         },
         addRound: async (parent, round, context) => {
+            //debug
+            console.log("add Round");
             if (context.user) {
                 const roundAdd = await User.findOneAndUpdate(
-                    { id: context.user_id },
-                    { $addToSet: { savedRound: { round } } }
+                    { _id: context.user._id },
+                    { $addToSet: { savedRounds: round } }
                 );
                 return roundAdd;
             }
         },
         login: async (parent, { email, password }) => {
-            const loginUser = await User.findOne({ email });
-            const token = signToken(loginUser)
+            const user = await User.findOne({ email });
+            const token = signToken(user)
             return {
-                token, loginUser
+                token, user
             };
         },
         deleteRound: async (parent, { id }, context) => {
             if (context.user) {
                 const roundGone = await User.findOneAndUpdate(
-                    { id: context.user_id },
+                    { _id: context.user._id },
                     { $pull: { savedRound: { id } } }
                 );
                 return roundGone;

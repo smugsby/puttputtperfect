@@ -8,6 +8,7 @@ type User {
     savedRounds: [Round] 
 }
 type Round {
+    distance: String
     puttsMade:  String
     firstIn: Boolean
     lastIn: Boolean
@@ -24,9 +25,9 @@ type Query{
     currentUser: User
 }
 type Mutation{
-    addUser(username: String!, email: String, password: String): Auth
-    login(email: String, password: String): Auth
-    addRound(puttsMade: String!, firstIn: Boolean, lastIn: Boolean, allMade: Boolean): User
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
+    addRound(distance: String!, puttsMade: String, firstIn: Boolean, lastIn: Boolean, allMade: Boolean, roundId: String!): User
     deleteRound(roundId: String): User
 }
     `

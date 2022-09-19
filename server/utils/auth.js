@@ -16,7 +16,7 @@ module.exports = {
     }
 
     if (!token) {
-      return console.log("doofuses 19");
+      return
     }
 
     // verify token and get user data out of it
@@ -25,7 +25,7 @@ module.exports = {
       req.user = data;
     } catch {
       console.log('Invalid token');
-      return console.log("doofuses 28");
+      return
     }
 
     return req

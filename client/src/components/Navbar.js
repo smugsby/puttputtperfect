@@ -1,18 +1,31 @@
-import React from 'react'
-import "../App.css" 
+import React, { useEffect } from 'react'
+import "../App.css"
+import Auth from '../utils/auth'
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Auth.loggedIn()) {
+      navigate('/dashboard')
+    }
+    else{
+      navigate('/')
+    }
+  }, [Auth.loggedIn()])
+
   return (
     <>
-    <div className='navbar'>
+      <div className='navbar'>
         {
-        true ?
-        <div>Log In</div>
+          !Auth.loggedIn() ?
+            <div>Log In</div>
             :
-        <div>Log Out</div>
+            <div onClick={Auth.logout}>Logout</div>
         }
-    </div>
-  </>
+      </div>
+    </>
   )
 }
 

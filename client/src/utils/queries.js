@@ -6,6 +6,7 @@ query currentUser {
         email
         username
         savedRounds {
+            distance
             puttsMade
             firstIn
             lastIn
